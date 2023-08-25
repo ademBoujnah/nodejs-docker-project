@@ -3,6 +3,8 @@ pipeline {
     
     environment {
         DOCKER_IMAGE_TAG = "ademboujnah/nodejs-app:latest"
+        SONARQUBE_SCANNER_HOME = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+
     }
     
     stages {
