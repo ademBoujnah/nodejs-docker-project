@@ -14,17 +14,12 @@ pipeline {
                 sh 'docker build -t $DOCKER_IMAGE_TAG .'
             }
         }
-         stage('Code Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'SonarQubeScanner'
-                    withSonarQubeEnv('SonarQube') {
-                        // Run SonarQube code analysis
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
-        }
+         stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
+  }
         
         stage('Push to Docker Hub') {
             steps {
