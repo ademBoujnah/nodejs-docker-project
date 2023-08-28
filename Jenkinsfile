@@ -10,16 +10,19 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                def scannerHome = tool 'SonarScanner';
+                withSonarQubeEnv() {
+                   sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
+    
+        stage('SonarQube Analysis') {
+            steps {
                 // Build the Node.js app in a Docker container
                 sh 'docker build -t $DOCKER_IMAGE_TAG .'
             }
         }
-         stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner';
-    withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-  }
         
         stage('Push to Docker Hub') {
             steps {
