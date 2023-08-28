@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_IMAGE_TAG = "ademboujnah/nodejs-app:latest"
-        SONARQUBE_SCANNER_HOME = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
     }
     
@@ -19,7 +19,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarQubeScanner'
+                    def scannerHome = tool 'SonarQube'
                     withSonarQubeEnv('SonarQube') {
                         // Run SonarQube code analysis
                         sh "${scannerHome}/bin/sonar-scanner"
